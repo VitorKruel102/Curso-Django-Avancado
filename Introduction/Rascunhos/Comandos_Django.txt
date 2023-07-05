@@ -4,5 +4,8 @@ Funcionalidades:
 Criar projeto:
     django-admin startproject <nome-projeto> .
 
+Criar aplicação:
+    django-admin 
+
 Inicialiar Django:
     python manage.py runserver
