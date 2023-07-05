@@ -1,0 +1,8 @@
+Funcionalidades:
+    django-admin --help
+
+Criar projeto:
+    django-admin startproject <nome-projeto> .
+
+Inicialiar Django:
+    python manage.py runserver
