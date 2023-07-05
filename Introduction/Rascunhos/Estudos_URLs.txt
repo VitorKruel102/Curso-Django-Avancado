@@ -1,0 +1,28 @@
+O Arquivo 'urls.py' é a porta de entradas da nossa aplicação web.
+
+É com ela que os usuários conseguem encontrar suas paginas dentro 
+do seu site.
+
+
+formato do arquivo:
+    """
+    from django.contrib import admin
+    from django.urls import path
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+    ]
+    """
+
+
+
+Por exemplo: (Queremos acessar dentro do nosso site a página sobre)
+
+    CAMINHO DO NAVEGADOR:
+        http://127.0.0.1:8000/sobre
+
+    NO ARQUIVO:
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('sobre/', view.sobre, name='sobre')
+        ]
