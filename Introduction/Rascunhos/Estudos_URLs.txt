@@ -26,3 +26,16 @@ Por exemplo: (Queremos acessar dentro do nosso site a página sobre)
             path('admin/', admin.site.urls),
             path('sobre/', view.sobre, name='sobre')
         ]
+
+
+MOVER AS URLS PARA DENTRO DO APLICATIVO:
+
+    from django.contrib import admin
+    from django.urls import path, include
+
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('', include('recipes.urls')), # dominino/...
+        path('recipes/', include('recipes.urls')), # dominino/recipes/...
+    ]
