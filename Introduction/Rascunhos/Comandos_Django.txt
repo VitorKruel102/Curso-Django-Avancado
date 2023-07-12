@@ -9,3 +9,6 @@ Inicialiar Django:
 
 Criar aplicação:
     python manage.py startapp recipes
+
+Criação do midia para a produção: (PRECISA DO STATIC_ROOT NO SETTING)
+    python manage.py collectstatic
