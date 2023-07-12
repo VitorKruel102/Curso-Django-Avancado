@@ -39,3 +39,20 @@ MOVER AS URLS PARA DENTRO DO APLICATIVO:
         path('', include('recipes.urls')), # dominino/...
         path('recipes/', include('recipes.urls')), # dominino/recipes/...
     ]
+    
+
+PARA FAZER UMA URL DINAMICA:
+
+    urlpatterns = [
+        path('', views.home), # Home
+        path('recipes/<int:id>/', views.recipe), # Recipe
+    ]
+
+    Em django o parâmetro id(<int:id>) será automaticamente enviado commo
+    parâmetro para o views.recipe. Assim poderemos acessar paginas unicas
+    de um produto ou receita.
+
+    https://docs.djangoproject.com/en/4.2/ref/urls/
+
+    def recipe(request, id):
+        return render(request, 'recipes/pages/home.html', context={'nome': 'Vitor Kruel'})
