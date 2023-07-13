@@ -12,3 +12,8 @@ Criar aplicação:
 
 Criação do midia para a produção: (PRECISA DO STATIC_ROOT NO SETTING)
     python manage.py collectstatic
+
+Migração do banco de dados:
+    python manage.py makemigrations
+    python manage.py migrate
+    
