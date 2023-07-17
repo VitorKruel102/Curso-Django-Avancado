@@ -17,3 +17,5 @@ Migração do banco de dados:
     python manage.py makemigrations
     python manage.py migrate
     
+Criando um SuperUser:
+    python manage.py createsuperuser
