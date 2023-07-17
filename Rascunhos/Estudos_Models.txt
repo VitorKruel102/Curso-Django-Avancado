@@ -19,3 +19,24 @@ def <nome-banco-de-dados>(model.Model):
         o nome principal de cada registro."""
         
         return self.name
+
+
+
+ACESSANDO DADOS DO MODELS PELO SHELL
+
+    registros = <nome-banco-de-dados>.objects.all()  # Retornar todos os dados
+    ordernar = registros.order_by('id')  # Crescente
+    ordernar = registros.order_by('-id')  # Decrescente
+    ordernar = registros.order_by('created_at')  # Decrescente
+
+    for registro in registros:
+        print(registro.title)
+        print(registro.description)
+
+    registros = <nome-banco-de-dados>.objects.all().first()  # Retornar o primeiro item
+    registros = <nome-banco-de-dados>.objects.all().last()  # Retornar o último item
+
+    # Criar e Salvar no Banco:
+    novo_registro = <nome-banco-de-dados>()
+    novo_registro.name = 'Vitor'
+    novo_registro.save()
