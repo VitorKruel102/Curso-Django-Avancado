@@ -40,3 +40,5 @@ ACESSANDO DADOS DO MODELS PELO SHELL
     novo_registro = <nome-banco-de-dados>()
     novo_registro.name = 'Vitor'
     novo_registro.save()
+
+    registro = Category.objects.get(id=10) #Retorna o registro com ID=10
