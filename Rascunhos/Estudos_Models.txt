@@ -1,0 +1,21 @@
+
+
+def <nome-banco-de-dados>(model.Model):
+    ...
+    name = model.CharField(max_length=100)
+    slug = models.SlugField()
+    recipe = model.IntegerField()
+    email = ...
+    description = models.TextField()
+    is_valid = models.BooleanField(default=False)
+    cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """No admin, irá deixar visível 
+        o nome principal de cada registro."""
+        
+        return self.name
