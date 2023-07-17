@@ -56,3 +56,21 @@ PARA FAZER UMA URL DINAMICA:
 
     def recipe(request, id):
         return render(request, 'recipes/pages/home.html', context={'nome': 'Vitor Kruel'})
+
+
+Como deve ser a estrutura final:
+
+    from django.contrib import admin
+    from django.urls import path, include
+    from django.conf.urls.static import static
+    from django.conf import settings
+
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('', include('recipes.urls')), # dominino/...
+        # path('recipes/', include('recipes.urls')), # dominino/recipes/...
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+
+    /* Precisa ter configurado o MEDIA_URL E MEDIA_ROOT no settings.py*/
+
