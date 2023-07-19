@@ -21,6 +21,7 @@ def category(request, category_id):
         'recipes/pages/category.html', 
         context={
             'recipes': recipes,
+            'title_category': f'{recipes.first().category.name} - Category |',
         }
     )
 
