@@ -299,3 +299,16 @@ h6 {
     margin: 2rem;
     padding: 0 2rem;
 }
+
+/* Generica */
+.center {
+    text-align: center;
+}
+
+.margem-x {
+    margin: 0 var(--spacing-gutter-medium);
+}
+
+.margem-y {
+    margin: var(--spacing-gutter-medium) 0;
+}
