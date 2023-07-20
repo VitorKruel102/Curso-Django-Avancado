@@ -1,9 +1,6 @@
-from django.test import TestCase
 from django.urls import resolve, reverse
 
 from recipes import views
-from recipes.models import Category, Recipe, User
-
 from recipes.tests.test_recipes_base import RecipeTestBase
 
 
@@ -26,13 +23,12 @@ class RecipeViewsTest(RecipeTestBase):
         response.content.decode('utf-8') - Transforma em UTF-8
         """
         response = self.client.get(reverse('recipes:home'))
-        self.assertIn('No recipes found here',
-                      response.content.decode('utf-8'))
+        self.assertIn('No recipes found here', response.content.decode('utf-8'))
 
     def test_recipes_home_template_loads_recipes(self):
         # Need a recipe for this test
         self.make_recipe()
-        
+
         response = self.client.get(reverse('recipes:home'))
         response_context_recipes = response.context['recipes']
         content = response.content.decode('utf-8')
@@ -40,6 +36,18 @@ class RecipeViewsTest(RecipeTestBase):
         # Check if one recipe exists
         self.assertIn('Recipe Title', content)
         self.assertEqual(len(response_context_recipes), 1)
+
+
+
+
+
+
+
+
+
+
+
+
 
    # Testando View Category
     def test_recipes_category_view_function_is_correct(self):
@@ -52,6 +60,28 @@ class RecipeViewsTest(RecipeTestBase):
             reverse('recipes:category', kwargs={'category_id': 100000}))
         self.assertEqual(response.status_code, 404)
 
+    def test_recipes_category_template_loads_recipes(self):
+        needed_title = 'This is a category test'
+        # Need a recipe for this test
+        self.make_recipe(title=needed_title)
+
+        response = self.client.get(reverse('recipes:category', kwargs={'category_id':1}))
+        response_context_recipes = response.context['recipes']
+        content = response.content.decode('utf-8')
+
+        # Check if one recipe exists
+        self.assertIn(needed_title, content)
+
+
+
+
+
+
+
+
+
+
+
     # Testando View Recipe
     def test_recipes_recipe_view_function_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
@@ -61,3 +91,15 @@ class RecipeViewsTest(RecipeTestBase):
         response = self.client.get(
             reverse('recipes:recipe', kwargs={'id': 100000}))
         self.assertEqual(response.status_code, 404)
+
+    def test_recipes_recipe_template_loads_the_correct_recipes(self):
+        needed_title = 'This is a detail page - It load one recipe'
+
+        # Need a recipe for this test
+        self.make_recipe(title=needed_title)
+
+        response = self.client.get(reverse('recipes:recipe', kwargs={'id':1}))
+        content = response.content.decode('utf-8')
+
+        # Check if one recipe exists
+        self.assertIn(needed_title, content)
