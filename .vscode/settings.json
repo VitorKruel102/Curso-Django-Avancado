@@ -42,4 +42,5 @@
     "typescript": "typescriptreact"
   },
   "python.formatting.provider": "none",
+  "liveServer.settings.port": 5501,
 }

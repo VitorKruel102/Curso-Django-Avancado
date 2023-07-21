@@ -1,0 +1,29 @@
+--------------------------------------------------------
+Introdução:
+
+Utilizamos o Coverage para criar um relatório para
+saber a porcentagem dos teste já realizados e os 
+teste que ainda faltam fazer;
+
+--------------------------------------------------------
+Instalação:
+    pip install coverage
+
+--------------------------------------------------------
+Criar um arquivo na raiz:
+
+    Nome do Arquivo: 
+        '.coveragerc'
+
+    Conteúdo:
+        [run]
+        branch = True
+        omit = venv/*, **/*test*.py, manage.py, project/*
+
+    OBSERVAÇÃO: omit é as pastas que não queremos testar.
+
+--------------------------------------------------------    
+Comandos:
+
+    1°: coverage run -m pytest
+    2°: coverage html
