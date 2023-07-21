@@ -39,8 +39,8 @@ class RecipeTestBase(TestCase):
         preparation_time_unit='Minutos',
         servings=5,
         servings_unit='Porções',
-        preparation_steps='Recipe Preparation Steps',
-        preparation_steps_is_html=False,
+        preparation_step='Recipe Preparation Steps',
+        preparation_step_is_html=False,
         is_published=True,
     ):
         if category_data is None:
@@ -59,7 +59,7 @@ class RecipeTestBase(TestCase):
             preparation_time_unit=preparation_time_unit,
             servings=servings,
             servings_unit=servings_unit,
-            preparation_step=preparation_steps,
-            preparation_step_is_html=preparation_steps_is_html,
+            preparation_step=preparation_step,
+            preparation_step_is_html=preparation_step_is_html,
             is_published=is_published,
         )
