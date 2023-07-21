@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404
+from django.db.models import Q # Pesquisa mais avançada no search
 from utils.recipes.factory import make_recipe
 
 from recipes.models import Recipe
@@ -52,11 +53,22 @@ def search(request):
     if not search_term:
         raise Http404()
         
+    """
+    contains = encontra a palavra exata;
+    icontains = encontra a palavra sendo em minuscula ou maiscula;
+    """
+    recipes = Recipe.objects.filter(
+        Q(title__icontains=search_term) | 
+        Q(description__icontains=search_term),
+        is_published=True,
+    ).order_by('-id')
+
     return render(
         request, 
         'recipes/pages/search.html', 
         context={
             'page_title': f'Search for "{search_term}" | ',
             'search_term': search_term,
+            'recipes': recipes,
         }
     )
