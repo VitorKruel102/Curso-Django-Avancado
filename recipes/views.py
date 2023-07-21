@@ -56,7 +56,7 @@ def search(request):
         request, 
         'recipes/pages/search.html', 
         context={
-            'page_title': f'Search for "{search_term} | "',
+            'page_title': f'Search for "{search_term}" | ',
             'search_term': search_term,
         }
     )
