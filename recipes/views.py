@@ -4,6 +4,10 @@ from django.db.models import Q # Pesquisa mais avançada no search
 from utils.pagination import make_pagination
 from recipes.models import Recipe
 
+import os
+
+PER_PAGE = int(os.environ.get('PER_PAGE', 6))
+
 
 # Create your views here.
 def home(request):
@@ -11,7 +15,7 @@ def home(request):
             is_published=True
     ).order_by('-id')
     
-    page_obj, pagination_range = make_pagination(request, recipes, 9)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(
         request, 
@@ -30,7 +34,7 @@ def category(request, category_id):
         ).order_by('-id')
     )
 
-    page_obj, pagination_range = make_pagination(request, recipes, 9)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(
         request, 
@@ -72,7 +76,7 @@ def search(request):
         is_published=True,
     ).order_by('-id')
 
-    page_obj, pagination_range = make_pagination(request, recipes, 9)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(
         request, 
