@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404, Http404
 from django.db.models import Q # Pesquisa mais avançada no search
+from django.contrib import messages
 
 from utils.pagination import make_pagination
 from recipes.models import Recipe
@@ -14,7 +15,9 @@ def home(request):
     recipes = Recipe.objects.filter( 
             is_published=True
     ).order_by('-id')
-    
+
+    messages.success(request, 'Epa, você foi pesquisar algo e eu vi!')
+
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(
@@ -59,6 +62,7 @@ def recipe(request, id):
     )
 
 def search(request):
+
     search_term = request.GET.get('search', '').strip()
     
     if not search_term:
