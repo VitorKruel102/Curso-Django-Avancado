@@ -23,7 +23,10 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('recipes.urls')), # dominino/...
+    path('authors/', include('authors.urls')), # dominino/...
     # path('recipes/', include('recipes.urls')), # dominino/recipes/...
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+] 
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
 
