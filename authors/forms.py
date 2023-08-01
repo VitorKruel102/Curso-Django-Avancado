@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-
+from django.core.exceptions import ValidationError
 
 def add_placeholder(field, placeholder_val):
     field.widget.attrs['placeholder'] = placeholder_val
@@ -74,3 +74,32 @@ class RegisterForm(forms.ModelForm):
                 'invalid': 'This fieldis invalid',
             }
         }
+
+    def clean_username(self): 
+        # Utilizado para validar o campo,
+        # clean_ + nome-do-campo
+        username = self.cleaned_data.get('username')
+
+        if '$' in username:
+            raise ValidationError(
+                'UserName inválido',
+                code='invalid'
+
+            )
+        return username
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        password = self.cleaned_data.get('password')
+        password2 = self.cleaned_data.get('password2')
+
+        if password != password2:
+            raise ValidationError({
+                'password': ValidationError(
+                    'Senha são diferentes',
+                    code='invalid'
+                ),
+                'password2': 'Senha são diferentes',
+            }
+            )
