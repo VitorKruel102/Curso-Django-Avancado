@@ -12,7 +12,7 @@ class AuthorRegisterFormUnitTest(TestCase):
         ('password', 'Your password'),
         ('password2', 'Confirm the password'),
     ])
-    def test_placeholder_is_correct(self, field, placeholder):
+    def test_fields_placeholder(self, field, placeholder):
         form = RegisterForm()
         current_placeholder = form[field].field.widget.attrs['placeholder']
 
