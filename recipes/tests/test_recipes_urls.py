@@ -1,5 +1,6 @@
-from django.test import TestCase
+from django.test import SimpleTestCase
 from django.urls import reverse
+from unittest import TestCase
 
 
 class RecipeURLsTest(TestCase):

@@ -3,7 +3,6 @@ from django.urls import resolve, reverse
 from recipes import views
 from recipes.tests.test_recipes_base import RecipeTestBase
 
-
 class RecipeViewsCategoryTest(RecipeTestBase):
     # Testando View Category
     def test_recipes_category_view_function_is_correct(self):
