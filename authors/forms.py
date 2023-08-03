@@ -35,9 +35,10 @@ class RegisterForm(forms.ModelForm):
 
 
     password = forms.CharField(
+        label='Password',
         required=True, 
         widget=forms.PasswordInput(
-),
+        ),
         error_messages={
             'required': 'Password must not be empty'
         },
@@ -49,6 +50,7 @@ class RegisterForm(forms.ModelForm):
         validators=[strong_password]
     )
     password2 = forms.CharField(
+        label='Password2',
         required=True, 
         widget=forms.PasswordInput(),
         error_messages={
@@ -71,7 +73,6 @@ class RegisterForm(forms.ModelForm):
             'first_name': 'First name',
             'last_name': 'Last name',
             'email': 'E-mail',
-            'password': 'Password',
         }
         help_texts = {
             'email': 'The e-mail must be valid.',
