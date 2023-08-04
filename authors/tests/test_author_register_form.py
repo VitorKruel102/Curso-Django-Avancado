@@ -1,9 +1,14 @@
 # from django.test import TestCase
 from authors.forms import RegisterForm
 from parameterized import parameterized
+
 from unittest import TestCase
+from django.test import TestCase as DjangoTestCase
+
+from django.urls import resolve, reverse
 
 class AuthorRegisterFormUnitTest(TestCase):
+
 
     @parameterized.expand([
         ('username', 'Your username'),
@@ -50,3 +55,30 @@ class AuthorRegisterFormUnitTest(TestCase):
         label_atual = form[campo].field.label
 
         self.assertEqual(label, label_atual)
+
+
+class AuthorRegisterFormIntegrationTest(DjangoTestCase):
+
+
+    def setUp(self, *args, **kwargs):
+        self.form_data = {
+            'username': 'user',
+            'first_name': 'first',
+            'last_name': 'last',
+            'email': 'email@email.com',
+            'password': 'Str0ngP@ssword1',
+            'password2': 'Str0ngP@ssword1'
+        }
+        return super().setUp(*args, **kwargs)
+
+    @parameterized.expand([
+        ('username', 'This field must not be empty'),
+    ])
+    def test_fields_cannot_be_empty(self, field, mensagem):
+        self.form_data[field] = ''
+        url = reverse('authors:create')
+        response = self.client.post(url, data=self.form_data, follow=True)    
+
+        self.assertIn(mensagem, response.content.decode('utf-8'))
+
+    
