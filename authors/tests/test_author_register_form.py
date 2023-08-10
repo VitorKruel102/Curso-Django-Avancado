@@ -102,3 +102,44 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
 
         mensagem = 'Username must have less than 150 characters'
         self.assertIn(mensagem, response.context['form'].errors.get('username'))
+
+    def test_password_field_have_lower_upper_case_letters_and_numbers(self):
+        self.form_data['password'] = 'abc123'
+
+
+        url = reverse('authors:create')
+        response = self.client.post(url, data=self.form_data, follow=True)    
+
+        mensagem = (
+            'Password must have at least one uppercase letter, '
+            'one lowercase letter and one number. The length should be' 
+            'at least 8 characters.'
+        )
+            
+        self.assertIn(mensagem, response.context['form'].errors.get('password'))
+
+        self.form_data['password'] = '@Abc2abc123'
+
+        url = reverse('authors:create')
+        response = self.client.post(url, data=self.form_data, follow=True)    
+
+        self.assertNotIn(mensagem, response.context['form'].errors.get('password'))
+
+    def test_password_field_and_passwor_confirmation_are_equal(self):
+        self.form_data['password'] = '@ABEDabc123'
+        self.form_data['password2'] = '@ABEDabc1235'
+
+        url = reverse('authors:create')
+        response = self.client.post(url, data=self.form_data, follow=True)    
+
+        mensagem = 'Senha são diferentes'
+          
+        self.assertIn(mensagem, response.context['form'].errors.get('password'))
+
+        self.form_data['password'] = '@ABEDabc123'
+        self.form_data['password2'] = '@ABEDabc123'
+
+        url = reverse('authors:create')
+        response = self.client.post(url, data=self.form_data, follow=True)    
+
+        self.assertNotIn(mensagem, response.content.decode('utf-8'))
