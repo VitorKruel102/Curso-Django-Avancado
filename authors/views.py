@@ -28,7 +28,9 @@ def register_create(request):
     if form.is_valid():
         # data = form.save(commit=False)
         # data.outro_campo = 'outro valor'
-        form.save()
+        user = form.save(commit=False)
+        user.set_password(user.password)
+        user.save()
         messages.success(request,'Your user is created, please log in.')
 
         del(request.session['register_form_data'])  

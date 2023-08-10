@@ -64,3 +64,10 @@ class RecipeViewsHomeTest(RecipeTestBase):
             self.assertEqual(len(paginator.get_page(1)), 9)
             self.assertEqual(len(paginator.get_page(2)), 9)
             self.assertEqual(len(paginator.get_page(3)), 1)
+
+    def test_invalide_page_query_uses_page_one(self):
+        response = self.client.get(reverse('recipes:home') + '?page=1A')
+        self.assertEqual(response.context['recipes'].number, 1)
+        
+        response = self.client.get(reverse('recipes:home') + '?page=1')
+        self.assertEqual(response.context['recipes'].number, 1)
