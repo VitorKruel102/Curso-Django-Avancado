@@ -26,8 +26,8 @@ class AuthorRegisterFormUnitTest(TestCase):
 
     @parameterized.expand([
         ('username', (
-            'Obrigatório. 150 caracteres ou menos. '
-            'Letras, números e @/./+/-/_ apenas.'
+            'Username must have letters, numbers or one of those @.+-_. '
+            'The length should be between 4 and 150 characters.'
         )),
         ('email', 'The e-mail must be valid.'),
         ('password', (
@@ -149,3 +149,13 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         response = self.client.get(url)    
 
         self.assertEqual(response.status_code, 404)
+
+    def test_email_field_must_unique(self):
+        url = reverse('authors:create')
+        self.client.post(url, data=self.form_data, follow=True)
+
+        response = self.client.post(url, data=self.form_data, follow=True)    
+        msg = 'User e-mail is already in use'
+
+        self.assertIn(msg, response.context['form'].errors.get('email'))
+
