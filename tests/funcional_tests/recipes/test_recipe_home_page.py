@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from .base import RecipeBaseFunctionalTest
+import pytest
 
+@pytest.mark.functional_test
 class RecipesHomePageFuncionalTest(RecipeBaseFunctionalTest):
 
 
