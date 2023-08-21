@@ -72,7 +72,7 @@ def login_create(request):
             messages.success(request, 'You are logged in.')
             login(request, authenticated_user)
         else:
-            messages.error(request, 'Invalid creadentials')
+            messages.error(request, 'Invalid credentials')
     else:
         messages.error(request, 'Invalid username or password')
     
