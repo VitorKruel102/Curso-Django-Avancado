@@ -74,7 +74,7 @@ def login_create(request):
         else:
             messages.error(request, 'Invalid creadentials')
     else:
-        messages.error(request, 'Erro to validade form data')
+        messages.error(request, 'Invalid username or password')
     
     return redirect(login_url)
  
