@@ -48,12 +48,7 @@ class RecipeViewsHomeTest(RecipeTestBase):
         self.assertIn('No recipes found here', response.content.decode('utf-8'))
 
     def test_recipes_home_is_paginated(self):
-        for i in range(19):
-            kwargs = {
-                'author_data':{'username': f'u{i}'}, 
-                'slug': f'r{i}'
-            }
-            self.make_recipe(**kwargs)
+        self.make_recipe_in_batch(qtd=19)
 
         with patch('recipes.views.PER_PAGE', new=9):
             response = self.client.get(reverse('recipes:home'))
