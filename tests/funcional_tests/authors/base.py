@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 
 class AuthorsBaseTest(StaticLiveServerTestCase):
     def setUp(self) -> None:
-        self.browser = make_chrome_browser()
+        self.browser = make_chrome_browser('--headless')
         return super().setUp()
 
     def tearDown(self) -> None:
