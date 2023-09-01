@@ -121,8 +121,22 @@ def dashboard_recipe_edit(request, id):
 
     form = AuthorRecipeForm(
         data=request.POST or None,
+        files=request.FILES or None, # Precisa ter no form um atributo --> enctype="multipart/form-data"
         instance=recipe
     )
+
+    if form.is_valid():
+        # Agora, o form é válido e eu posso tentar salvar
+        recipe = form.save(commit=False)
+
+        recipe.author = request.user
+        recipe.preparation_steps_is_html = False
+        recipe.is_published = False
+
+        recipe.save()
+
+        messages.success(request, 'Sua receita foi salva com sucesso!')
+        return redirect(reverse('authors:dashboard_recipe_edit', args=(id,)))
 
     return render(
         request,
