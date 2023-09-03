@@ -1,13 +1,12 @@
-from django.shortcuts import render, redirect
-from django.http import Http404
-from django.contrib import messages
-from .forms import RegisterForm, LoginForm
-from django.urls import reverse
+from authors.forms import RegisterForm, LoginForm
 from authors.forms.recipe_form import AuthorRecipeForm
-from recipes.models import Recipe
-
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from recipes.models import Recipe
 
 def register_view(request):
     register_form_data = request.session.get('register_form_data', None)
