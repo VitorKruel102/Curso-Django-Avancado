@@ -15,7 +15,11 @@ from recipes.models import Recipe
     name='dispatch' 
     # ^ É o método que buscar qo método pedido para a View. Aqui sé não estiver logado, ele nem procura o método
 )
-class DashboardRecipe(View):    
+@method_decorator(
+    login_required(login_url='authors:login', redirect_field_name='next'),
+    name='dispatch'
+)
+class DashboardRecipe(View):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -25,10 +29,10 @@ class DashboardRecipe(View):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
-    def get_recipe(self, id=None): 
+    def get_recipe(self, id=None):
         recipe = None
 
-        if id:
+        if id is not None:
             recipe = Recipe.objects.filter(
                 is_published=False,
                 author=self.request.user,
@@ -52,15 +56,13 @@ class DashboardRecipe(View):
     def get(self, request, id=None):
         recipe = self.get_recipe(id)
         form = AuthorRecipeForm(instance=recipe)
-
-        self.render_recipe(form)
+        return self.render_recipe(form)
 
     def post(self, request, id=None):
         recipe = self.get_recipe(id)
-
         form = AuthorRecipeForm(
             data=request.POST or None,
-            files=request.FILES or None, # Precisa ter no form um atributo --> enctype="multipart/form-data"
+            files=request.FILES or None,
             instance=recipe
         )
 
@@ -75,7 +77,7 @@ class DashboardRecipe(View):
             recipe.save()
 
             messages.success(request, 'Sua receita foi salva com sucesso!')
-            return redirect(                
+            return redirect(
                 reverse(
                     'authors:dashboard_recipe_edit', args=(
                         recipe.id,
@@ -83,4 +85,4 @@ class DashboardRecipe(View):
                 )
             )
 
-        self.render_recipe(form)
+        return self.render_recipe(form)
