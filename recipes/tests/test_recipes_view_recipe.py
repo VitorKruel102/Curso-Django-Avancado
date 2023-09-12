@@ -7,12 +7,12 @@ from recipes.tests.test_recipes_base import RecipeTestBase
 class RecipeViewsRecipeTest(RecipeTestBase):
     # Testando View Recipe
     def test_recipes_recipe_view_function_is_correct(self):
-        view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
-        self.assertIs(view.func, views.recipe)
+        view = resolve(reverse('recipes:recipe', kwargs={'pk': 1}))
+        self.assertIs(view.func.view_class, views.RecipeDetail)
 
     def test_recipes_recipe_view_returns_404_if_no_recipes_found(self):
         response = self.client.get(
-            reverse('recipes:recipe', kwargs={'id': 100000}))
+            reverse('recipes:recipe', kwargs={'pk': 100000}))
         self.assertEqual(response.status_code, 404)
 
     def test_recipes_recipe_template_loads_the_correct_recipes(self):
@@ -21,7 +21,7 @@ class RecipeViewsRecipeTest(RecipeTestBase):
         # Need a recipe for this test
         self.make_recipe(title=needed_title)
 
-        response = self.client.get(reverse('recipes:recipe', kwargs={'id':1}))
+        response = self.client.get(reverse('recipes:recipe', kwargs={'pk':1}))
         content = response.content.decode('utf-8')
 
         # Check if one recipe exists
@@ -32,6 +32,6 @@ class RecipeViewsRecipeTest(RecipeTestBase):
         # Need a recipe for this test
         recipe = self.make_recipe(is_published=False)
 
-        response = self.client.get(reverse('recipes:recipe', kwargs={'id': recipe.id}))
+        response = self.client.get(reverse('recipes:recipe', kwargs={'pk': recipe.pk}))
 
         self.assertEqual(response.status_code, 404)
