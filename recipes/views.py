@@ -4,6 +4,8 @@ from django.db.models import Q
 from django.http.response import Http404
 from django.views.generic import DetailView, ListView
 from django.http import JsonResponse
+from django.forms.models import model_to_dict
+
 from utils.pagination import make_pagination
 
 from recipes.models import Recipe
@@ -53,7 +55,6 @@ class RecipeListViewHomeApi(RecipeListViewBase):
             list(recipes_list),
             safe=False
         )
-
 
 
 class RecipeListViewCategory(RecipeListViewBase):
@@ -129,3 +130,28 @@ class RecipeDetail(DetailView):
         })
 
         return ctx
+
+
+class RecipesDetailApi(RecipeDetail):
+
+    def render_to_response(self, context, **response_kwargs):
+        recipe = self.get_context_data()['recipe']
+        recipe_dict = model_to_dict(recipe)
+
+        # Podemos ADICIONAR novos campos na API
+        recipe_dict['created_at'] = str(recipe.created_at)
+        recipe_dict['updated_at'] = str(recipe.created_at)
+
+        if recipe_dict.get('cover'):
+            # Podemos ALTERAR os campos
+            recipe_dict['cover'] = recipe_dict['cover'].url
+        else:
+            recipe_dict['cover'] = ''
+
+        # Podemos REMOVER campos
+        del recipe_dict['is_published']
+
+        return JsonResponse(
+            recipe_dict,
+            safe=False
+        )
