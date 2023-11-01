@@ -46,7 +46,7 @@ class RecipeListViewHome(RecipeListViewBase):
 class RecipeListViewHomeApi(RecipeListViewBase):
     template_name = 'recipes/pages/home.html'
 
-    def render_to_response(self, context, **response_kwargs):
+    def render_to_response(self, context, **response_kwargs) -> JsonResponse:
         recipes = self.get_context_data()['recipes']
         recipes_list = recipes.object_list.values()
 
@@ -134,7 +134,7 @@ class RecipeDetail(DetailView):
 
 class RecipesDetailApi(RecipeDetail):
 
-    def render_to_response(self, context, **response_kwargs):
+    def render_to_response(self, context, **response_kwargs) -> JsonResponse:
         recipe = self.get_context_data()['recipe']
         recipe_dict = model_to_dict(recipe)
 
