@@ -1,19 +1,17 @@
 from authors.forms.recipe_form import AuthorRecipeForm
-from django.http.response import Http404
-from django.views import View
 from django.contrib import messages
-from django.urls import reverse
-from django.shortcuts import redirect, render
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.http.response import Http404
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views import View
 from recipes.models import Recipe
-
 
 
 @method_decorator(
     login_required(login_url='authors:login', redirect_field_name='next'),
-    name='dispatch' 
-    # ^ É o método que buscar qo método pedido para a View. Aqui sé não estiver logado, ele nem procura o método
+    name='dispatch'
 )
 class DashboardRecipe(View):
     def __init__(self, *args, **kwargs):

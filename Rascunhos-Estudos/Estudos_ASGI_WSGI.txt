@@ -1,6 +1,0 @@
-Ambos os arquivos são responsáveis para fazer a 
-conexão com o servidor web e o django no momento 
-de produção.
-
---> Alguns servidores vão utilizar o ASGI 
-    e outros vão utilizar o WSGI.

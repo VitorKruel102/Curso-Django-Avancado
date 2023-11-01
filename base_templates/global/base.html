@@ -1,11 +1,12 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
-<head>    
+<head>
     {% include 'global/partials/head.html' %}
     <title>{% block title %}{% endblock title %} Recipes</title>
-</head> 
+</head>
+
 <body>
     {% include 'global/partials/header.html' %}
     {% include 'global/partials/search.html' %}
@@ -14,7 +15,7 @@
         {% block content %}{% endblock content %}
         {% include 'global/partials/pagination.html' %}
     </main>
-    
+
     {% include 'global/partials/footer.html' %}
 
     <script src="{% static 'global/js/scripts.js' %}"></script>

@@ -1,27 +1,25 @@
 from collections import defaultdict
 
 from django import forms
+from django.core.exceptions import ValidationError
 from recipes.models import Recipe
 from utils.django_forms import add_attr
-from django.core.exceptions import ValidationError
 from utils.strings import is_positive_number
 
 
 class AuthorRecipeForm(forms.ModelForm):
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self._my_errors = defaultdict(list)
 
-        add_attr(self.fields.get('preparation_step'), 'class', 'span-2')
-        add_attr(self.fields.get('cover'), 'class', 'span-2')
+        add_attr(self.fields.get('preparation_steps'), 'class', 'span-2')
 
     class Meta:
         model = Recipe
         fields = 'title', 'description', 'preparation_time', \
             'preparation_time_unit', 'servings', 'servings_unit', \
-            'preparation_step', 'cover'
+            'preparation_steps', 'cover'
         widgets = {
             'cover': forms.FileInput(
                 attrs={
