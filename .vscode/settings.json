@@ -1,0 +1,55 @@
+{
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.renderWhitespace": "all",
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/__pycache__": true
+  },
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Copilot Theme - Higher Contrast",
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  
+  "python.languageServer": "Pylance",
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.memory.keepLibraryAst": true,
+  "python.analysis.memory.releaseThreshold": 150,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll.eslint": true
+  },
+
+  "php.suggest.basic": false,
+  "php.validate.enable": true,
+  "php.validate.run": "onSave",
+  "php.executablePath": "/path/to/php",
+  "phpcs.enable": true,
+  "phpcs.standard": "PSR2",
+  "phpmd.rulesets": ["cleancode", "codesize"],
+  "intelephense.environment.phpVersion": "7.4",
+  "intelephense.diagnostics.undefinedTypes": false,
+
+  "javascript.format.enable": false,
+  "typescript.format.enable": false,
+  "html.format.enable": false,
+  "css.format.enable": false,
+
+  "python.linting.pylintArgs": ["--load-plugins", "pylint_django"],
+  "files.associations": {
+    "**/templates/*.html": "html",
+    "**/templates/**/*": "django-html",
+    "**/static/css/*.css": "css",
+    "**/static/js/*.js": "javascript",
+    "**/*.php": "php"
+  },
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  },
+
+}
